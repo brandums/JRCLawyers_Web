@@ -1,0 +1,89 @@
+{
+  "Version": 1,
+  "Hash": "8Ma6nWvFOucTse2AWrVBYhrROEPSjxP6yOb9luBMrJc=",
+  "Source": "JRC_Abogados.Server",
+  "BasePath": "_content/JRC_Abogados.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\jrc_abogados.client\\jrc_abogados.client.esproj",
+      "Version": 2,
+      "Source": "jrc_abogados.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Release;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Release;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [
+    {
+      "Name": "JRC_Abogados.Server\\wwwroot",
+      "Source": "JRC_Abogados.Server",
+      "ContentRoot": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\",
+      "BasePath": "_content/JRC_Abogados.Server",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\pdfs\\b61ba86a-c592-4fb0-a60c-93ffbc05990f.pdf",
+      "SourceId": "JRC_Abogados.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\",
+      "BasePath": "_content/JRC_Abogados.Server",
+      "RelativePath": "pdfs/b61ba86a-c592-4fb0-a60c-93ffbc05990f.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\pdfs\\b61ba86a-c592-4fb0-a60c-93ffbc05990f.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\uploads\\CV_español_bba08335-ed8b-49d1-8c7c-c2e867b912ea.pdf",
+      "SourceId": "JRC_Abogados.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\",
+      "BasePath": "_content/JRC_Abogados.Server",
+      "RelativePath": "uploads/CV_español_bba08335-ed8b-49d1-8c7c-c2e867b912ea.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\CV_español_bba08335-ed8b-49d1-8c7c-c2e867b912ea.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\uploads\\Top Notch 3rd Edition Fundamentals B With Workbook_c25f412f-ceb9-4422-884a-1372b2d2d765.pdf",
+      "SourceId": "JRC_Abogados.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\",
+      "BasePath": "_content/JRC_Abogados.Server",
+      "RelativePath": "uploads/Top Notch 3rd Edition Fundamentals B With Workbook_c25f412f-ceb9-4422-884a-1372b2d2d765.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Top Notch 3rd Edition Fundamentals B With Workbook_c25f412f-ceb9-4422-884a-1372b2d2d765.pdf"
+    }
+  ]
+}

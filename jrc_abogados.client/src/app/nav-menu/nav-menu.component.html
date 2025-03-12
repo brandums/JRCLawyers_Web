@@ -1,0 +1,73 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+      <div class="container d-flex justify-content-between">
+        <a class="navbar-brand" [routerLink]="['/']"><i class="fas fa-balance-scale"></i> JRC</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target=".navbar-collapse"
+                aria-label="Toggle navigation"
+                [attr.aria-expanded]="isExpanded"
+                (click)="toggle()">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-sm-inline-flex justify-content-end" id="navbarNav" [ngClass]="{ show: isExpanded }">
+          <ul class="navbar-nav flex-grow">
+            <li class="nav-item"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" href="/client-list">Clientes</a>
+            </li>
+
+            <li class="nav-item"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" href="/case-list">Casos</a>
+            </li>
+
+            <li class="nav-item"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" href="/appointment-list">Citas</a>
+            </li>
+
+            <li class="nav-item"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" href="/reminder-list">Recordatorios</a>
+            </li>
+
+            <li class="nav-item"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" href="/expedient-list">Expedientes</a>
+            </li>
+
+            <li class="nav-item"
+                *ngIf="user && user.rolId === 1"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" href="/user-list">Empleados</a>
+            </li>
+
+            <li class="nav-item"
+                *ngIf="user && user.rolId === 1"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" href="/report-list">Reportes</a>
+            </li>
+
+            <li class="nav-item text-center">
+              <p class="nav-user">{{user?.nombre}}</p>
+            </li>
+
+            <li class="nav-item">
+              <i class="fas fa-sign-out-alt logout" title="cerrar sesion" (click)="logout()"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

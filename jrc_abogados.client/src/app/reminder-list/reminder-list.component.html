@@ -1,0 +1,109 @@
+<div class="container">
+  <h2>Listado de Recordatorios</h2>
+
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn-crear" (click)="seleccionarRecordatorio(0)" data-bs-toggle="modal" data-bs-target="#reminder-form">Nuevo Recordatorio</button>
+  </div>
+
+  <div class="mb-3 col-xs-12 col-xl-4 d-flex">
+    <div class="input-group">
+      <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-filter"></i></span>
+      <select class="form-select" [(ngModel)]="campoFiltro">
+        <option value="cliente.nombre">Nombre</option>
+        <option value="cliente.apellido">Apellido</option>
+        <option value="titulo">Título</option>
+        <option value="fecha">Fecha</option>
+      </select>
+      <input type="text" class="form-control" id="searchInput" [(ngModel)]="buscarPalabra" placeholder="Buscar recordatorio">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Más</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Título</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let recordatorio of clientesPaginados">
+          <td>
+            <i class="fas fa-eye" (click)="verRecordatorio(recordatorio)" data-bs-toggle="modal" data-bs-target="#reminder-detail-modal"></i>
+          </td>
+          <td>{{ recordatorio.cliente.nombre }}</td>
+          <td>{{ recordatorio.cliente.apellido }}</td>
+          <td>{{ recordatorio.titulo }}</td>
+          <td>{{ recordatorio.fecha }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    
+
+    <div class="d-flex justify-content-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="paginaActual === 1">
+            <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</a>
+          </li>
+          <li class="page-item" *ngFor="let pagina of [].constructor(totalPaginas); let i = index" [class.active]="paginaActual === (i + 1)">
+            <a class="page-link" (click)="cambiarPagina(i + 1)">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+            <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div id="reminder-form" class="modal fade custom-backdrop">
+    <app-create-reminder></app-create-reminder>
+  </div>
+
+  <div id="reminder-detail-modal" class="modal fade custom-backdrop">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalles del Recordatorio</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Título:</strong> {{ recordatorioSeleccionado?.titulo }}</p>
+          <p><strong>Descripción:</strong> {{ recordatorioSeleccionado?.descripcion }}</p>
+          <p><strong>Fecha:</strong> {{ recordatorioSeleccionado?.fecha }}</p>
+          <p><strong>Hora:</strong> {{ recordatorioSeleccionado?.hora }}</p>
+          <p><strong>Datos del Cliente.</strong></p>
+          <p><strong>Nombre Cliente:</strong> {{ recordatorioSeleccionado?.cliente?.nombre }}</p>
+          <p><strong>Apellido Cliente:</strong> {{ recordatorioSeleccionado?.cliente?.apellido }}</p>
+          <p><strong>Email:</strong> {{ recordatorioSeleccionado?.cliente?.correoElectronico }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal">Eliminar</button>
+          <button (click)="editarRecordatorio(recordatorioSeleccionado?.id ?? 0)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reminder-form">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirm-delete-modal" class="modal fade custom-backdrop">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de que deseas eliminar el recordatorio "{{ recordatorioSeleccionado?.titulo }}"?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button (click)="eliminarRecordatorio(recordatorioSeleccionado?.id ?? 0)" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>

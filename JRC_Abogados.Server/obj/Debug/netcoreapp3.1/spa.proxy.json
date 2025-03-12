@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:4200",
+"RedirectUrl": "",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\..\\jrc_abogados.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="item">
+    <img src="../../assets/cliente.jpg" />
+    <a class="overlay" href="/client-list">
+      <p>Clientes</p>
+    </a>
+  </div>
+  <div class="item">
+    <img src="../../assets/caso.jpg" />
+    <a class="overlay" href="/case-list">
+      <p>Casos</p>
+    </a>
+  </div>
+  <div class="item">
+    <img src="../../assets/cita.jpg" />
+    <a class="overlay" href="/appointment-list">
+      <p>Citas</p>
+    </a>
+  </div>
+  <div class="item">
+    <img src="../../assets/recordatorio.jpg" />
+    <a class="overlay" href="/reminder-list">
+      <p>Recordatorios</p>
+    </a>
+  </div>
+  <div class="item">
+    <img src="../../assets/expediente.jpg" />
+    <a class="overlay" href="/expedient-list">
+      <p>Expedientes</p>
+    </a>
+  </div>
+  <div class="item" *ngIf="user && user.rolId === 1">
+    <img src="../../assets/usuario.jpg" />
+    <a class="overlay" href="/user-list">
+      <p>Empleados</p>
+    </a>
+  </div>
+  <div class="item" *ngIf="user && user.rolId === 1">
+    <img src="../../assets/reporte.jpeg" />
+    <a class="overlay" href="report-list">
+      <p>Reportes</p>
+    </a>
+  </div>
+  <div class="item">
+  </div>
+</div>

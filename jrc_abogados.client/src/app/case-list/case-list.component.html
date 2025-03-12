@@ -1,0 +1,125 @@
+<div class="container">
+  <h2>Listado de Casos</h2>
+
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn-crear" (click)="seleccionarCaso(0)" data-bs-toggle="modal" data-bs-target="#case-form">Nuevo Caso</button>
+  </div>
+
+  <div class="mb-3 col-xs-12 col-xl-4 d-flex">
+    <div class="input-group">
+      <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-filter"></i></span>
+      <select class="form-select" [(ngModel)]="campoFiltro">
+        <option value="juzgado.nombre">Juzgado</option>
+        <option value="juzgado.numeroExpediente">Expediente</option>
+        <option value="cliente.nombre">Nombre</option>
+        <option value="cliente.apellido">Apellido</option>
+        <option value="tipoCaso.nombre">Tipo</option>
+        <option value="estado.nombre">Estado</option>
+      </select>
+      <input type="text" class="form-control" id="searchInput" [(ngModel)]="buscarPalabra" placeholder="Buscar caso">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Más</th>
+          <th>Juzgado</th>
+          <th>Expediente</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let caso of clientesPaginados">
+          <td>
+            <i class="fas fa-eye" (click)="verCaso(caso)" data-bs-toggle="modal" data-bs-target="#caso-detail-modal"></i>
+          </td>
+          <td>{{ caso.juzgado.nombre }}</td>
+          <td>{{ caso.juzgado.numeroExpediente }}</td>
+          <td>{{ caso.cliente.nombre }}</td>
+          <td>{{ caso.cliente.apellido }}</td>
+          <td>{{ caso.tipoCaso.nombre }}</td>
+          <td>{{ caso.estado.nombre }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    
+
+    <div class="d-flex justify-content-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="paginaActual === 1">
+            <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</a>
+          </li>
+          <li class="page-item" *ngFor="let pagina of [].constructor(totalPaginas); let i = index" [class.active]="paginaActual === (i + 1)">
+            <a class="page-link" (click)="cambiarPagina(i + 1)">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+            <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div id="case-form" class="modal fade custom-backdrop">
+    <app-create-case></app-create-case>
+  </div>
+
+
+  <div id="caso-detail-modal" class="modal fade custom-backdrop">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalles del Caso</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Tipo de Caso:</strong> {{ casoSeleccionado?.tipoCaso?.nombre }}</p>
+          <p><strong>Descripción:</strong> {{ casoSeleccionado?.descripcion }}</p>
+          <p><strong>Fecha de Inicio:</strong> {{ casoSeleccionado?.fechaInicio }}</p>
+          <p *ngIf="casoSeleccionado?.estadoId == '3'"><strong>Fecha de Fin:</strong> {{ casoSeleccionado?.fechaTermino }}</p>
+          <p><strong>Estado del caso:</strong> {{ casoSeleccionado?.estado?.nombre }}</p>
+          <p><strong>Datos del Juzgado</strong></p>
+          <p><strong>Nombre de Juzgado:</strong> {{ casoSeleccionado?.juzgado?.nombre }}</p>
+          <p><strong>Número de Expediente:</strong> {{ casoSeleccionado?.juzgado?.numeroExpediente }}</p>
+          <p><strong>Ubicación del Caso</strong></p>
+          <p><strong>Dirección del Caso:</strong> {{ casoSeleccionado?.ubicacion?.direccion }}</p>
+          <p><strong>Estado:</strong> {{ casoSeleccionado?.ubicacion?.estado }}</p>
+          <p><strong>Ciudad:</strong> {{ casoSeleccionado?.ubicacion?.ciudad }}</p>
+          <p><strong>Código Postal:</strong> {{ casoSeleccionado?.ubicacion?.codigoPostal }}</p>
+          <p><strong>Datos del Cliente</strong></p>
+          <p><strong>Nombre Cliente:</strong> {{ casoSeleccionado?.cliente.nombre }}</p>
+          <p><strong>Apellido Cliente:</strong> {{ casoSeleccionado?.cliente.apellido }}</p>
+          <p><strong>Email:</strong> {{ casoSeleccionado?.cliente.correoElectronico }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal">Eliminar</button>
+          <button (click)="editarCaso(casoSeleccionado?.id ?? 0)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#case-form">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirm-delete-modal" class="modal fade custom-backdrop">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de que deseas eliminar el caso?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button (click)="eliminarCaso(casoSeleccionado?.id ?? 0)" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>

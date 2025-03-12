@@ -1,0 +1,155 @@
+<div class="container">
+  <h2>Listado de Expedientes</h2>
+
+  <div class="col-12 d-flex justify-content-end">
+    <button class="btn-crear" (click)="seleccionarExpediente(0)" data-bs-toggle="modal" data-bs-target="#expedient-form">Nuevo Expediente</button>
+  </div>
+
+  <div class="mb-3 col-xs-12 col-xl-4 d-flex">
+    <div class="input-group">
+      <span class="input-group-text" id="inputGroupPrepend"><i class="fas fa-filter"></i></span>
+      <select class="form-select" [(ngModel)]="campoFiltro">
+        <option value="nombre">Nombre Expediente</option>
+        <option value="cliente.nombre">Nombre Cliente</option>
+        <option value="cliente.apellido">Apellido Cliente</option>
+        <option value="tipoExpediente.nombre">Tipo de Expediente</option>
+      </select>
+      <input type="text" class="form-control" id="searchInput" [(ngModel)]="buscarPalabra" placeholder="Buscar Expediente">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Mas</th>
+          <th>Nombre Expediente</th>
+          <th>Nombre Cliente</th>
+          <th>Apellido Cliente</th>
+          <th>Tipo</th>
+          <th>Agregar Doc.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let expediente of expedientesPaginados">
+          <td>
+            <i class="fas fa-eye" (click)="verExpediente(expediente)" data-bs-toggle="modal" data-bs-target="#expediente-detail-modal"></i>
+            <i class="fas fa-paper-plane" style="margin-left:15px;" (click)="verExpediente(expediente)" data-bs-toggle="modal" data-bs-target="#expedient-send-pdf"></i>
+          </td>
+          <td>{{ expediente.nombre }}</td>
+          <td>{{ expediente.cliente.nombre }}</td>
+          <td>{{ expediente.cliente.apellido }}</td>
+          <td>{{ expediente.tipoExpediente?.nombre }}</td>
+          <td class="d-flex justify-content-center">
+            <button style="border:none;" (click)="openDocumentList(expediente.id)"><i class="far fa-folder-open"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    
+
+    <div class="d-flex justify-content-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="paginaActual === 1">
+            <a class="page-link" (click)="cambiarPagina(paginaActual - 1)">Anterior</a>
+          </li>
+          <li class="page-item" *ngFor="let pagina of [].constructor(totalPaginas); let i = index" [class.active]="paginaActual === (i + 1)">
+            <a class="page-link" (click)="cambiarPagina(i + 1)">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+            <a class="page-link" (click)="cambiarPagina(paginaActual + 1)">Siguiente</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div id="expedient-form" class="modal fade custom-backdrop">
+    <app-create-expedient></app-create-expedient>
+  </div>
+
+
+  <div id="expediente-detail-modal" class="modal fade custom-backdrop">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalles del Expediente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Nombre:</strong> {{ expedienteSeleccionado?.nombre }}</p>
+          <p><strong>Tipo de Expediente:</strong> {{ expedienteSeleccionado?.tipoExpediente?.nombre }}</p>
+          <p *ngIf="expedienteSeleccionado?.caso"><strong>Datos del Caso</strong></p>
+          <p *ngIf="expedienteSeleccionado?.caso"><strong>Tipo de Caso:</strong> {{ expedienteSeleccionado?.caso?.tipoCaso?.nombre }}</p>
+          <p *ngIf="expedienteSeleccionado?.caso"><strong>Descripción:</strong> {{ expedienteSeleccionado?.caso?.descripcion }}</p>
+          <p *ngIf="expedienteSeleccionado?.caso"><strong>Ciudad:</strong> {{ expedienteSeleccionado?.caso?.ubicacion?.ciudad }}</p>
+          <p *ngIf="expedienteSeleccionado?.caso"><strong>Número de Expediente:</strong> {{ expedienteSeleccionado?.caso?.juzgado?.numeroExpediente }}</p>
+          <p><strong>Datos del Cliente</strong></p>
+          <p><strong>Nombre Cliente:</strong> {{ expedienteSeleccionado?.cliente?.nombre }}</p>
+          <p><strong>Apellido Cliente:</strong> {{ expedienteSeleccionado?.cliente?.apellido }}</p>
+          <p><strong>Email:</strong> {{ expedienteSeleccionado?.cliente?.correoElectronico }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal">Eliminar</button>
+          <button (click)="editarExpediente(expedienteSeleccionado?.id ?? 0)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#expedient-form">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirm-delete-modal" class="modal fade custom-backdrop">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Eliminación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de que deseas eliminar el expediente?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button (click)="eliminarExpediente(expedienteSeleccionado?.id ?? 0)" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="expedient-send-pdf" class="modal fade custom-backdrop">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Compartir Expediente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="row g-3 needs-validation" name="formularioExpediente" novalidate>
+            <div class="col-12">
+              <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend">Email</span>
+                <input type="text" class="form-control" name="Email" id="validacionEmail" aria-describedby="inputGroupPrepend" minlength="5" maxlength="20" autocomplete="new-password" (paste)="validarEmail($event)" (keydown)="validarEmail($event)" [(ngModel)]="nickEmail" placeholder="Nickname" required>
+                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                <select class="form-select auxEmail" name="extencionEmail" id="validacionEmail" [(ngModel)]="extencionEmail" required>
+                  <option value="gmail">gmail</option>
+                  <option value="hotmail">hotmail</option>
+                  <option value="yahoo">yahoo</option>
+                  <option value="outlook">outlook</option>
+                </select>
+                <span class="input-group-text" id="inputGroupPrepend">.com</span>
+                <div class="invalid-feedback">
+                  {{ !nickEmail ? 'Por favor ingrese su email.' : 'El nickname debe tener al menos 5 caracteres.' }}
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" (click)="iniciarValidadores()" [disabled]="enviandoPDF" class="btn btn-primary">Enviar</button>
+              <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

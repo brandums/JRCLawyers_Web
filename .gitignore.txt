@@ -1,0 +1,6 @@
+.env
+appsettings.json
+/dist/
+/build/
+/bin/
+/obj/

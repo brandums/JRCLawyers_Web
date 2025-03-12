@@ -1,0 +1,78 @@
+.container-fluid {
+  height: 100vh;
+  background: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/balanza.png");
+  background-repeat: repeat;
+  background-size: 70px;
+}
+
+.login-container {
+  background-color: #ac950f;
+  padding: 60px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+  color: #FFFFFF;
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  background: none;
+  border-bottom: 0.5px solid #FFFFFF;
+  outline: none;
+  opacity: 0.8;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+  color: #FFFFFF;
+}
+
+  input[type="text"].error,
+  input[type="password"].error {
+    border-bottom: 2px solid red;
+    color: red;
+  }
+
+.error-message {
+  color: red;
+  font-weight:600;
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+button[type="submit"] {
+  margin-top: 30px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #FFFFFF;
+  font-weight: 700;
+  font-size: 20px;
+  color: #ac950f;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+  button[type="submit"]:hover {
+    background-color: #CCCCCC;
+  }

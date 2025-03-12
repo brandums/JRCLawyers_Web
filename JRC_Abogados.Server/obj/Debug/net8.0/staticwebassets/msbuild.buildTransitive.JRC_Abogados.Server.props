@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\JRC_Abogados.Server.props" />
+</Project>

@@ -1,0 +1,72 @@
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{tituloForm}}</h5>
+      <button type="button" id="bClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="limpiarForm()"></button>
+    </div>
+    <div class="modal-body">
+      <form class="row g-3 needs-validation" name="formularioRecordatorio" novalidate>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Título</span>
+          <input type="text" class="form-control" name="Titulo" id="validacionTitulo" placeholder="Ingrese un título" minlength="5" maxlength="30" onpaste="return false;" (keydown)="validarTexto($event, 1)" [(ngModel)]="recordatorio.titulo" required>
+          <div class="invalid-feedback">
+            {{ !recordatorio.titulo ? 'Por favor ingrese un título.' : 'Ingrese un título más completo con al menos 5 caracteres.' }}
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Descripción</span>
+          <input type="text" class="form-control" name="Descripcion" id="validacionDescripcion" placeholder="Ingrese descripción del recordatorio" minlength="5" maxlength="60" (keydown)="validarTexto($event, 1)" [(ngModel)]="recordatorio.descripcion" required>
+          <div class="invalid-feedback">
+            {{ !recordatorio.descripcion ? 'Por favor ingrese una descripción.' : 'Por favor ingrese una descripción válida con más de 5 caracteres.' }}
+          </div>
+        </div>
+        <div class="col-12 d-flex f-direction-row">
+          <div class="col-7" style="padding-right: 10px">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">Fecha:</span>
+              <input type="date" class="form-control" name="Fecha" id="validacionFecha" placeholder="Fecha" [min]="obtenerFecha()" [max]="FechaMaxima()" onkeydown="return false" [(ngModel)]="recordatorio.fecha" required />
+              <div class="invalid-feedback">
+                Por favor seleccione una fecha.
+              </div>
+            </div>
+          </div>
+          <div class="col-5">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">Hora:</span>
+              <input type="time" class="form-control" name="Hora" id="validacionHora" placeholder="Hora" min="08:30" max="18:30" (change)="validarHora($event)" [(ngModel)]="recordatorio.hora" required>
+              <div class="invalid-feedback">
+                Ingrese la hora entre 8:00 AM y 6:30 PM.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Cliente</span>
+          <select class="form-select" name="Cliente" id="validacionCliente" [(ngModel)]="recordatorio.clienteId" required>
+            <option value="" disabled selected>Seleccione un cliente</option>
+            <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }} {{ cliente.apellido }}</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccione un cliente.
+          </div>
+        </div>
+
+        <div *ngIf="errorMensaje" class="alert alert-danger" role="alert">
+          {{ errorMensaje }}
+        </div>
+
+        <div class="col-12 d-flex justify-content-end">
+          <button *ngIf="recordatorioId === 0" class="btn btn-primary" type="submit" [disabled]="creandoRecordatorio" (click)="iniciarValidadores()">
+            <span *ngIf="!creandoRecordatorio">Crear recordatorio</span>
+            <span *ngIf="creandoRecordatorio">Creando recordatorio...</span>
+          </button>
+
+          <button *ngIf="recordatorioId !== 0" class="btn btn-primary" type="submit" [disabled]="creandoRecordatorio" (click)="iniciarValidadores()">
+            <span *ngIf="!creandoRecordatorio">Actualizar</span>
+            <span *ngIf="creandoRecordatorio">Actualizando...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

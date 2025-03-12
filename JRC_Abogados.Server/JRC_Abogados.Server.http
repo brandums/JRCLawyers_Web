@@ -1,0 +1,6 @@
+@JRC_Abogados.Server_HostAddress = http://localhost:5106
+
+GET {{JRC_Abogados.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\JRC_Abogados.Server.props" />
+</Project>

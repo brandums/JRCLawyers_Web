@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\pdfs\\b61ba86a-c592-4fb0-a60c-93ffbc05990f.pdf",
+      "PackagePath": "staticwebassets\\pdfs\\b61ba86a-c592-4fb0-a60c-93ffbc05990f.pdf"
+    },
+    {
+      "Id": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\uploads\\CV_español_bba08335-ed8b-49d1-8c7c-c2e867b912ea.pdf",
+      "PackagePath": "staticwebassets\\uploads\\CV_español_bba08335-ed8b-49d1-8c7c-c2e867b912ea.pdf"
+    },
+    {
+      "Id": "C:\\Users\\brran\\OneDrive\\Escritorio\\JRC_Abogados\\JRC_Abogados.Server\\wwwroot\\uploads\\Top Notch 3rd Edition Fundamentals B With Workbook_c25f412f-ceb9-4422-884a-1372b2d2d765.pdf",
+      "PackagePath": "staticwebassets\\uploads\\Top Notch 3rd Edition Fundamentals B With Workbook_c25f412f-ceb9-4422-884a-1372b2d2d765.pdf"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.JRC_Abogados.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.JRC_Abogados.Server.props",
+      "PackagePath": "build\\JRC_Abogados.Server.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.JRC_Abogados.Server.props",
+      "PackagePath": "buildMultiTargeting\\JRC_Abogados.Server.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.JRC_Abogados.Server.props",
+      "PackagePath": "buildTransitive\\JRC_Abogados.Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

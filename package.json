@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@angular/forms": "^17.3.12",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.0",
+    "ng-recaptcha": "^13.2.1",
+    "ngx-mask": "^18.0.0"
+  }
+}

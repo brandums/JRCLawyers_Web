@@ -1,0 +1,116 @@
+a {
+  color: #0366d6;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+a, i {
+  cursor: pointer !important;
+}
+
+/*formularios*/
+form {
+  max-width: 600px;
+}
+
+.auxEmail {
+  max-width: 100px;
+}
+
+.modal-header {
+  background: #6A6969;
+  color: #FFFFFF;
+}
+
+/*listas*/
+h2 {
+  font-size: 26px;
+  color: #6A6969;
+}
+
+.btn-crear {
+  background: transparent;
+  border: 2px solid #ac950f;
+  color: #ac950f;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.btn-editar {
+  background: #1C9BFF;
+  color: #FFFFFF;
+  border: none;
+  font-size: 15px;
+}
+
+.btn-eliminar {
+  background: #FA4907;
+  color: #FFFFFF;
+  border: none;
+  font-size: 15px;
+}
+
+/*elimina flechas de incremento y decremento en inputs tipo numericos*/
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+html, body {
+  height: 100%;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.pdf-container {
+  height: 800px;
+  width: 1000px;
+}
+
+
+
+
+
+.cdk-overlay-container {
+  z-index: 1200 !important;
+}
+
+.mat-select-panel {
+  z-index: 1201 !important;
+}
+
+
+/*tablas responsive*/
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+  .table-responsive::-webkit-scrollbar {
+    display: none;
+  }
+
+.table {
+  min-width: 600px;
+}
+  .table th, .table td {
+    white-space: nowrap;
+  }
+

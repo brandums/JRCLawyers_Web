@@ -1,0 +1,66 @@
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{tituloForm}}</h5>
+      <button type="button" id="bClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="limpiarForm()"></button>
+    </div>
+    <div class="modal-body">
+      <form class="row g-3 needs-validation" name="formularioExpediente" novalidate>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Nombre de Expediente</span>
+          <input type="text" class="form-control" name="nombre" id="validacionNombre" placeholder="Ingrese el nombre" minlength="5" maxlength="30" (keydown)="validarTexto($event, 1)" [(ngModel)]="expediente.nombre" required>
+          <div class="invalid-feedback">
+            {{ !expediente.nombre ? 'Por favor ingrese el nombre del expediente.' : 'Ingrese un nombre más completo con al menos 5 caracteres.' }}
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Cliente</span>
+          <select class="form-select" name="Cliente" id="validacionCliente" [(ngModel)]="expediente.clienteId" (change)="onClienteChange()" [disabled]="expedienteId !== 0" required>
+            <option value="" disabled selected>Seleccione un cliente</option>
+            <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }} {{ cliente.apellido }}</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccione un cliente.
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Tipo de Expediente</span>
+          <select class="form-select" name="TipoExpediente" id="validacionTipoExpediente" [(ngModel)]="expediente.tipoExpedienteId" (change)="onTypeExpedientChange()" required>
+            <option value="" disabled selected>Seleccione el tipo</option>
+            <option *ngFor="let tipoExpediente of tiposExpediente" [value]="tipoExpediente.id">{{ tipoExpediente.nombre }}</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccione un tipo de expediente.
+          </div>
+        </div>
+
+        <div class="col-12 input-group" *ngIf="expediente.tipoExpedienteId == '2'">
+          <span class="input-group-text" id="inputGroupPrepend">Caso</span>
+          <select class="form-select" name="Caso" id="validacionCaso" [(ngModel)]="expediente.casoId" required>
+            <option value="" disabled selected>Seleccione un caso</option>
+            <option *ngIf="casos.length === 0" disabled>Este cliente no tiene casos por registrar.</option>
+            <option *ngFor="let caso of casos" [value]="caso.id">{{ caso.juzgado.numeroExpediente }}</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccione un caso.
+          </div>
+        </div>
+
+        <div *ngIf="errorMensaje" class="alert alert-danger" role="alert">
+          {{ errorMensaje }}
+        </div>
+        <div class="col-12 d-flex justify-content-end">
+          <button *ngIf="expedienteId === 0" class="btn btn-primary" type="submit" [disabled]="creandoExpediente" (click)="iniciarValidadores()">
+            <span *ngIf="!creandoExpediente">Crear Expediente</span>
+            <span *ngIf="creandoExpediente">Creando Expediente...</span>
+          </button>
+
+          <button *ngIf="expedienteId !== 0" class="btn btn-primary" type="submit" [disabled]="creandoExpediente" (click)="iniciarValidadores()">
+            <span *ngIf="!creandoExpediente">Actualizar</span>
+            <span *ngIf="creandoExpediente">Actualizando...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

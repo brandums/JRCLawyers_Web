@@ -1,0 +1,133 @@
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{tituloForm}}</h5>
+      <button type="button" id="bClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="limpiarForm()"></button>
+    </div>
+    <div class="modal-body">
+      <form class="row g-3 needs-validation" name="formularioReporte" novalidate>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Nombre</span>
+          <input type="text" class="form-control" name="nombre" id="validacionNombre" placeholder="Ingrese un nombre" minLength="5" maxlength="30" (keydown)="validarTexto($event, 1)" [(ngModel)]="reporte.nombre" required>
+          <div class="invalid-feedback">
+            {{ !reporte.nombre ? 'Por favor ingrese un nombre.' : 'Por favor ingrese un nombre válida con al menos 5 caracteres.' }}
+          </div>
+        </div>
+
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Descripción</span>
+          <input type="text" class="form-control" name="descripcion" id="validacionDescripcion" placeholder="Ingrese descripción del reporte" minLength="6" maxlength="60" (keydown)="validarTexto($event, 1)" [(ngModel)]="reporte.descripcion" required>
+          <div class="invalid-feedback">
+            {{ !reporte.descripcion ? 'Por favor ingrese una descripción.' : 'Por favor ingrese una descripción válida con al menos 6 caracteres.' }}
+          </div>
+        </div>
+
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Opción de fecha:</span>
+          <select class="form-select" id="rangoFecha" name="opcionFecha" [(ngModel)]="opcionFecha" (change)="onOpcionFechasChange($event)" [disabled]="isEdit" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="0">Todas las Fechas</option>
+            <option value="1">Rango de Fechas</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccion una opcion.
+          </div>
+        </div>
+
+        <div class="col-12 d-flex f-direction-row" *ngIf="opcionFecha === '1'">
+          <div class="col-6" style="padding-right: 10px">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">Inicio:</span>
+              <input type="date" class="form-control" name="FechaInicio" id="validacionFechaInicio" placeholder="Fecha de inicio" [max]="FechaMaxima()" [min]="FechaMinima()" onkeydown="return false" [(ngModel)]="reporte.fechaInicio" [disabled]="isEdit" required />
+              <div class="invalid-feedback">
+                Por favor seleccione una fecha.
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">Fin:</span>
+              <input type="date" class="form-control" name="FechaFin" id="validacionFechaFin" placeholder="Fecha de fin" [max]="FechaMaxima()" [min]="FechaMinima()" onkeydown="return false" [(ngModel)]="reporte.fechaFin" [disabled]="isEdit" required />
+              <div class="invalid-feedback">
+                Por favor seleccione una fecha.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Opción de Cliente:</span>
+          <select class="form-select" id="opcionCliente" name="opcionCliente" [(ngModel)]="opcionCliente" (change)="onOpcionClienteChange($event)" [disabled]="isEdit" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="0">Todos los Clientes</option>
+            <option value="1">Por cliente</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccion una opcion.
+          </div>
+        </div>
+
+        <div class="col-12 input-group" *ngIf="opcionCliente === '1'">
+          <span class="input-group-text" id="inputGroupPrepend">Cliente</span>
+          <select class="form-select" name="Cliente" id="validacionCliente" [(ngModel)]="reporte.clienteId" [disabled]="isEdit" required>
+            <option value="" disabled selected>Selecciona un cliente</option>
+            <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }} {{ cliente.apellido }}</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccion un cliente.
+          </div>
+        </div>
+
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Opción de Empleado:</span>
+          <select class="form-select" id="opcionEmpleado" name="opcionEmpleado" [(ngModel)]="opcionEmpleado" (change)="onOpcionEmpleadoChange($event)" [disabled]="isEdit" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="0">Todos los Empleados</option>
+            <option value="1">Por Empleado</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccion una opcion.
+          </div>
+        </div>
+
+        <div class="col-12 input-group" *ngIf="opcionEmpleado === '1'">
+          <span class="input-group-text" id="inputGroupPrepend">Empleado</span>
+          <select class="form-select" name="Empleado" id="validacionEmpleado" [(ngModel)]="reporte.empleadoId" [disabled]="isEdit" required>
+            <option value="" disabled selected>Selecciona un empleado</option>
+            <option *ngFor="let empleado of empleados" [value]="empleado.id">{{ empleado.nombre }}</option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor seleccion un empleado.
+          </div>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Selecciona tablas</mat-label>
+          <mat-select [(ngModel)]="tablasSeleccionadas" id="selectTablas" name="selectTablas" multiple (selectionChange)="onSelectionChange($event)" [disabled]="isEdit" required>
+            <mat-option *ngFor="let tabla of tablas" [value]="tabla">{{ tabla }}</mat-option>
+          </mat-select>
+
+          <div class="invalid-feedback">
+            Por favor seleccione 1 o más tablas.
+          </div>
+        </mat-form-field>
+
+        <div *ngIf="errorMensaje" class="alert alert-danger" role="alert">
+          {{ errorMensaje }}
+        </div>
+
+        <div class="col-12  d-flex justify-content-end">
+          <button *ngIf="reporteId === 0" class="btn btn-primary" type="submit" [disabled]="creandoReporte" (click)="iniciarValidadores()">
+            <span *ngIf="!creandoReporte">Crear reporte</span>
+            <span *ngIf="creandoReporte">Creando reporte...</span>
+          </button>
+
+          <button *ngIf="reporteId !== 0" class="btn btn-primary" type="submit" [disabled]="creandoReporte" (click)="iniciarValidadores()">
+            <span *ngIf="!creandoReporte">Actualizar</span>
+            <span *ngIf="creandoReporte">Actualizando...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

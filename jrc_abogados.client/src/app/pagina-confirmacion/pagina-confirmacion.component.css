@@ -1,0 +1,24 @@
+.container-fluid {
+  height: 100vh;
+  background: #1e1e1e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/balanza.png");
+  background-repeat: repeat;
+  background-size: 70px;
+}
+
+
+.message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+h1 {
+  font-size: 48px;
+  color: white;
+}

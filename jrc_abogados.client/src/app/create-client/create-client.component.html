@@ -1,0 +1,121 @@
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{{tituloForm}}</h5>
+      <button type="button" id="bClose" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="limpiarForm()"></button>
+    </div>
+    <div class="modal-body">
+      <form class="row g-3 needs-validation" name="formularioCliente" novalidate>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Nombre(s)</span>
+          <input type="text" class="form-control" name="Nombre" id="validacionNombre" placeholder="Ingrese su nombre(s)" minlength="2" maxlength="30" (keydown)="validarTexto($event, 1)" onpaste="return false;" [(ngModel)]="cliente.nombre" required>
+          <div class="invalid-feedback">
+            {{ !cliente.nombre ? 'Por favor ingrese su nombre.' : 'El nombre debe tener al menos 2 caracteres.' }}
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Apellido(s)</span>
+          <input type="text" class="form-control" name="Apellido" id="validacionApellido" placeholder="Ingrese su apellido(s)" minlength="3" maxlength="30" (keydown)="validarTexto($event, 2)" onpaste="return false;" [(ngModel)]="cliente.apellido" required>
+          <div class="invalid-feedback">
+            {{ !cliente.apellido ? 'Por favor ingrese su apellido.' : 'El apellido debe tener al menos 3 caracteres.' }}
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="input-group has-validation">
+            <span class="input-group-text" id="inputGroupPrepend">Fecha de nacimiento</span>
+            <input type="date" class="form-control" name="Fecha" id="validacionFecha" placeholder="Fecha" [max]="FechaMaxima()" [min]="FechaMinima()" onkeydown="return false" [(ngModel)]="cliente.fechaNacimiento" required />
+            <div class="invalid-feedback">
+              Por favor seleccione una fecha.
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="input-group has-validation">
+            <span class="input-group-text" id="inputGroupPrepend">Email</span>
+            <input type="text" class="form-control" name="Email" id="validacionEmail" aria-describedby="inputGroupPrepend" minlength="5" maxlength="20" autocomplete="new-password"  (paste)="validarEmail($event)" (keydown)="validarEmail($event)" [(ngModel)]="nickEmail" placeholder="Nickname" required>
+            <span class="input-group-text" id="inputGroupPrepend">@</span>
+            <!--<select class="form-select auxEmail" name="extencionEmail" id="validacionEmail" [(ngModel)]="extencionEmail" required>
+              <option value="gmail">gmail</option>
+              <option value="hotmail">hotmail</option>
+              <option value="yahoo">yahoo</option>
+              <option value="outlook">outlook</option>
+            </select>-->
+            <input type="text" class="form-control" name="ExtencionEmail" id="validacionExtencionEmail" aria-describedby="inputGroupPrepend" minlength="3" maxlength="10" autocomplete="new-password" (paste)="validarEmail2($event)" (keydown)="validarEmail2($event)" [(ngModel)]="extencionEmail" placeholder="mail" required>
+            <span class="input-group-text" id="inputGroupPrepend">.com</span>
+            <div class="invalid-feedback">
+              {{ !nickEmail ? 'Por favor ingrese su email.' : 'El nickname debe tener al menos 5 caracteres.' }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Teléfono</span>
+          <input type="text" class="form-control"
+                 name="Telefono"
+                 id="validacionTelefono"
+                 placeholder="(00) 0000-0000"
+                 minlength="10"
+                 maxlength="10"
+                 autocomplete="off"
+                 (keydown)="limitarNumeros($event)"
+                 [(ngModel)]="_telefono"
+                 required>
+
+          <span class="input-group-text" id="inputGroupPrepend">{{ !telefono ? '(00) 0000-0000' : telefono }}</span>
+
+          <div class="invalid-feedback">
+            {{ !_telefono ? 'Por favor ingrese su teléfono.' : 'El teléfono debe tener 10 caracteres.' }}
+          </div>
+        </div>
+
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Dirección</span>
+          <input type="text" class="form-control" name="Direccion" id="validacionDireccion" placeholder="Calle, #123" minlength="8" maxlength="30" (keydown)="validarDireccion($event, 1)" [(ngModel)]="cliente.ubicacion.direccion" required>
+          <div class="invalid-feedback">
+            {{ !cliente.ubicacion.direccion ? 'Por favor ingrese su dirección.' : 'Ingrese su ubicación válida con al menos 8 caracteres.' }}
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Estado</span>
+          <select class="form-select" name="Estado" id="validacionEstado" [(ngModel)]="cliente.ubicacion.estado" (change)="onStateChange(cliente.ubicacion.estado)" required>
+            <option value="" disabled selected>Seleccione un estado</option>
+            <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+          </select>
+          <div class="invalid-feedback">
+            {{ !cliente.ubicacion.estado ? 'Por favor seleccione su estado.' : 'Seleccione un estado válido.' }}
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Ciudad</span>
+          <select class="form-select" name="Ciudad" id="validacionCiudad" [(ngModel)]="cliente.ubicacion.ciudad" required>
+            <option value="" disabled selected>Seleccione una ciudad</option>
+            <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+          </select>
+          <div class="invalid-feedback">
+            {{ !cliente.ubicacion.ciudad ? 'Por favor seleccione su ciudad.' : 'Seleccione una ciudad válida.' }}
+          </div>
+        </div>
+        <div class="col-12 input-group">
+          <span class="input-group-text" id="inputGroupPrepend">Código Postal</span>
+          <input type="text" class="form-control" name="CodigoPostal" id="validacionCodigoPostal" placeholder="00000" minlength="5" maxlength="5" (paste)="limitarNumeros($event)" (keydown)="limitarNumeros($event)" [(ngModel)]="cliente.ubicacion.codigoPostal" required>
+          <div class="invalid-feedback">
+            {{ !cliente.ubicacion.codigoPostal ? 'Por favor ingrese su código postal.' : 'El código postal debe tener 5 caracteres.' }}
+          </div>
+        </div>
+        <div *ngIf="errorMensaje" class="alert alert-danger" role="alert">
+          {{ errorMensaje }}
+        </div>
+        <div class="col-12  d-flex justify-content-end">
+          <button *ngIf="clienteId === 0" class="btn btn-primary" type="submit" [disabled]="creandoCliente" (click)="iniciarValidadores()">
+            <span *ngIf="!creandoCliente">Crear cliente</span>
+            <span *ngIf="creandoCliente">Creando cliente...</span>
+          </button>
+
+          <button *ngIf="clienteId !== 0" class="btn btn-primary" type="submit" [disabled]="creandoCliente" (click)="iniciarValidadores()">
+            <span *ngIf="!creandoCliente">Actualizar</span>
+            <span *ngIf="creandoCliente">Actualizando...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

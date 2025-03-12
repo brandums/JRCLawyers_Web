@@ -1,0 +1,21 @@
+<body>
+  <app-nav-menu *ngIf="user" [user]="user"></app-nav-menu>
+  <main class="container-fluid p-0">
+    <router-outlet></router-outlet>
+  </main>
+
+  <button id="abrir-modal" style="display:none" data-bs-toggle="modal" data-bs-target="#message-alert">abrir</button>
+  <div id="message-alert" class="modal fade custom-backdrop" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Notificacion</h5>
+          <button type="button" id="btn-close-modal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="message-text">Mensaje aca</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
